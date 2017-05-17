@@ -1,2 +1,2 @@
 # Hangman-Game
-This is a game assignment for the bootcamp class.
+This is a Hangman game that I have done for the class assignment.
