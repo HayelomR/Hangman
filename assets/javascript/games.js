@@ -30,7 +30,16 @@ for (var i = 0; i < placeholder.length; i++) {
 };
 	// Display word placeholder on  monitor.
 	document.getElementById('word-placeholder').textContent = wordPlaceholderString;
+//Creates array with the letters of the choosen word as my "master"
+  splitWord = pickedWord.split("");
+//Counts the number of total letters in the randommly chosen word
+  totalLetters = splitWord.length;
 
+  // When the user presses a key, the following function will run .
+
+document.onkeyup = function(event) {
+
+initializeGame();
 // Keep track of user guesses.
 function trackLetterGuesses(userInput) {
 	for (i = 0; i < lettersGuessed.length; i++) {
@@ -58,11 +67,6 @@ function trackLetterGuesses(userInput) {
 
 	return lettersGuessedString;
 };
-
-initializeGame();
-
-// When the user presses a key, it will run the following function...
-document.onkeyup = function(event) {
 
 // Comparing the user's guess to the letters contained in splitWord array (the picked word)
 for (var i = 0; i < splitWord.length; i++) {
@@ -143,5 +147,7 @@ function restartGame(wordPlaceholder) {
 	lettersGuessed = [];
 	document.getElementById('letters-guessed').innerHTML = lettersGuessed;
 };
+
+
 
 };
