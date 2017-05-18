@@ -4,6 +4,7 @@ var cars =  [ "Bugatti","lumborghini","Tesla"
 "Audi", "Jaguar","lexus","Mercedes", "Cadillaic",
 "Bmw","Acura","Maserati", "land rover","Jeep"," acura"
 ,"kia"];
+
 var wins = 0;
 var loses = 0;
 var placeholderArray = [];
@@ -162,25 +163,26 @@ function restartGame(wordPlaceholder) {
 
 	// Reset guess count.
 	correctGuessCount = 0;
-	document.getElementById('guess-count').innerHTML = guessesLeft;
+	document.getElementById('guessRemain').innerHTML = guessesLeft;
 
 	// Reset list of letters guessed.
 	lettersGuessed = [];
-	document.getElementById('letters-guessed').innerHTML = lettersGuessed;
+	document.getElementById('lettersGuessed').innerHTML = lettersGuessed;
+};
 
 // Create the HTML that will be injected into <span> and displayed on the page.
 
   // Display the word placeholder on our page.
 	    var currentWord = "<p>" + placeholder + "</p>";
-	    document.querySelector("#wordPlaceholder").innerHTML = currentWord;
+	    document.querySelector("#word-placeholder").innerHTML = currentWord;
 
   // Display Wins value on page
 	    var winner = win;
-		document.querySelector("#wins").innerHTML = winner;
+		document.querySelector("#wins-count").innerHTML = winner;
 
   // Display Loses value on page
 	    var loss = lose;
-		document.querySelector("#losses").innerHTML = loss;
+		document.querySelector("#losses-count").innerHTML = loss;
 
   // Display Guesses Remaining value on page
 	    var guess = guessNumber;
@@ -188,7 +190,7 @@ function restartGame(wordPlaceholder) {
 
   // Display the Letters Already Guessed on page
 	    var guessedLetters = alreadyGuessed.toString();
-		document.querySelector("#guessLetter").innerHTML = guessedLetters;
+		document.querySelector("#lettersGuessed").innerHTML = guessedLetters;
 
 }; //<--ending keyup function curly brace
 
