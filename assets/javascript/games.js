@@ -1,12 +1,4 @@
-/* words that will be used for the game.*/
-
-var cars =  [ "Bugatti","lumborghini","Tesla"
-"Audi", "Jaguar","lexus","Mercedes", "Cadillaic",
-"Bmw","Acura","Maserati", "land rover","Jeep"," acura"
-,"kia"];
-
 var wins = 0;
-var loses = 0;
 var placeholderArray = [];
 var prevPlaceholderArray = [];
 var wordPlaceholder = [];
@@ -15,40 +7,73 @@ var word = [];
 var wordPlaceholderString = "";
 var userInput = "";
 var correctGuessCount = 0;
-var guessesLeft = 13;
+var guessesLeft = 10;
 
-// Object of Star Wars Hangman words.
+var wordArray =  [ "the","rose","jasmine","Dahlia","Magnolia","irses","Violet",
+"marigold", "poppy","petuna","peony","camilia","cypress","lilac","tulip"];
+// lets initalize the game by pressing a key.
+document.onkeyup = function(event) { 
+	console.log('This is the key entered', event.key);
+	var keyPress;
 
-// Array of Star Wars Hangman words created from object.
+	if (typeof event != 'undefined') {
+		keyPress = event.keyCode;
+
+		// Convert user input key to upper case string.
+		userInput = String.fromCharCode(keyPress).toUpperCase();
+		console.log(userInput + " should match the key entered");
+
+		// Track user guesses over time.
+		trackLetterGuesses(userInput);
+
+		// Pause audio.
+		pauseAudio();
+
+		// Build hangman word based on new user input.
+		buildWord(userInput);
+	}
+
+	// No idea what this does, but seems to be needed.
+	else if (e) {
+		keyPress = e.which;
+	}
+	return false;
+};
+
+// FUNCTIONS
+// =================================================================================
+//Randomly choose a word for the user to guess
+function createWord(wordArray) {
+	word = wordArray[Math.floor(Math.random()*wordArray.length)];
+	userInput = wordArray[index];
+			// remove the chosen word from array
+			wordsArray.splice(index, 1);
 
 
-// Initialize game on window load.
-function initializeGame() {
+	//Create placeholder for word in UI.
+	createWordPlaceholder(word);
+	return word;
+};
 
-for (var i = 0; i < cars.length; i++) {
-		var index = Math.floor(Math.random()*theWord.length);
-		pickedWord = cars[index];
-		theWord.splice(index, 1);  // This removes the picked element from the array
-
-//Generate placeholder text for the word the computer chooses
-	function createWordPlaceholder(word) {	
+//Create placeholder for word in UI.
+function createWordPlaceholder(word) {	
 	var wordPlaceholder = [];
 
 	// Fill array with underscores.
-	for (i = 0; i < cars.length; i++) {
+	for (i = 0; i < word.length; i++) {
 		wordPlaceholder.push("_");
 	}
+
+	// Convert word placeholder array to string for displaying in UI.
 	wordPlaceholderString = wordPlaceholder.join(" ");
 
-	// Display word placeholder in computer.
+	// Display word placeholder in UI.
 	document.getElementById('word-placeholder').textContent = wordPlaceholderString;
 	return wordPlaceholder;
 };
 
-
-
-//Creates array with the letters of the choosen word
-	function trackLetterGuesses(userInput) {
+// Keep track of user guesses.
+function trackLetterGuesses(userInput) {
 
 	/* 
 	 * Check if letter already guessed.
@@ -59,95 +84,74 @@ for (var i = 0; i < cars.length; i++) {
 			return;
 		}
 	}
+
+	// Push letter guessed.
+	lettersGuessed.push(userInput);
+	console.log("LettersGuessed array item: " + lettersGuessed[0]);
 	
+	// Convert letters guessed array to string for displaying in UI.
+	var lettersGuessedString = lettersGuessed.join(", ");
+	document.getElementById('letters-guessed').innerHTML = lettersGuessedString;
 
-initializeGame();
+	// Each guess reduces number of guesses left. 
+	guessesLeft--;
 
-// Check if user input is only alphabet keys
-function lettersOnly() {
-	var charCode = event.keyCode;
-	if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 8) {
-		return true;
+	// Display guesses left in UI.
+	document.getElementById('guess-count').innerHTML = guessesLeft;
+	console.log('Guesses left' + guessesLeft);
+
+
+	// Game restarts when no more guesses left.
+	if (guessesLeft == 0) {
+		restartGame();
+	}
+
+	return lettersGuessedString;
+};
+
+// Builds hangman word as user guesses letters.
+function buildWord(userInput) {
+
+	// Initialize placeholder array to underscore placeholder.
+	if (prevPlaceholderArray.length == 0) {
+		placeholderArray = createWordPlaceholder(word);
+
+	// Makes it possible to see letters and underscores.
 	} else {
-		return false;
-	}
-}
-
-// When the user presses a key, it will run the following function...
-document.onkeyup = function(event) {
-
-// Determine which key was pressed
-var userGuess = event.key;
-
-// Check if the letter has already been used
-function prevGuess () {
-	if (alreadyGuessed.includes(userGuess)) { 
-		return true;
-	}
-	else { 
-		return false;
-	}
-}
-
-if (lettersOnly() == true) {
-	console.log("You pressed alphabet key")
-	}
-	else {
-	console.log("Please press a letter key only")
+		placeholderArray = prevPlaceholderArray;
 	}
 
-// Comparing the user's guess to the letters contained in splitWord array (the picked word)
-	for (var i = 0; i < splitWord.length; i++) {
-		if ((prevGuess()) ==false && (lettersOnly()==true)){
+	// Replace underscore with matching letter.
+	for (var i = 0; i < word.length; i++) {
+	  console.log('Word is ' + word);
+	  if (userInput == word[i]) {
+	  	console.log(userInput + " is in word at " + i);
+	  	//
+	  	placeholderArray[i] = userInput;
+	  }
+	}
 
-			if ((userGuess == splitWord[i])) {
-			// console.log ("You guessed " + userGuess);
-			guessNumber--;
-			alreadyGuessed.push(userGuess);
-		}
+	prevPlaceholderArray = placeholderArray;
+
+	// Convert placeholder array to string for display on the computer.
+	placeholder = placeholderArray.join(" ");
+	document.getElementById('word-placeholder').innerHTML = placeholder;
+
+	console.log("Placeholder Array length is " + placeholderArray.length);
+	console.log("Placeholder split is " + placeholder.split(","));
+	console.log("Word join is " + word.join(" "));
 	
-
-		else if ((userGuess !== splitWord[i])) {
-			// console.log("Wrong guess.")
-			guessNumber--;
-			alreadyGuessed.push(userGuess);
-		}
-
-		else if ((prevGuess() == true) || (lettersOnly()==false)) { 
-			console.log("Keep guessing");
-		}
-
-		else {
-			// return false;
-			console.log("not sure what to do")
-			}	
+	// User wins when placeholder matches word.
+	if (placeholder.split(',') == word.join(" ")) {
+		console.log("Woot");
+		wins++;
+		playAudio();
+		document.getElementById('win-count').innerHTML = wins;
+		restartGame();
 	}
 };
 
-// Get the "_" to change back to the letter guessed
-		for (var i = 0; i < splitWord.length; i++) {
-			if (splitWord[i] == userGuess) {
-				placeholder[i]=placeholder[i].replace(' _', userGuess);
-				console.log(placeholder[i]);
-			}
-		}
-
-// Check if user won
-correctLetters = 0;
-for (var i = 0; i < splitWord.length; i++) {
-			
-			if ((totalLetters == correctLetters) && (guessNumber > 0)) {
-				console.log("Congratulations!")
-				win++;
-				initializeGame();
-			}
-
-		} else if ((totalLetters !== correctLetters) && (guessNumber == 0)) {
-			console.log("You lose")
-			lose++;
-			initializeGame();
-		}
-};
+// Restart game, initializing several values.
 function restartGame(wordPlaceholder) {
 	
 	// Add new word.
@@ -159,39 +163,14 @@ function restartGame(wordPlaceholder) {
 	placeholderArray = [];
 
 	// Reset remaining guesses.
-	guessesLeft = 13;
+	guessesLeft = 10;
 
 	// Reset guess count.
 	correctGuessCount = 0;
-	document.getElementById('guessRemain').innerHTML = guessesLeft;
+	document.getElementById('guess-count').innerHTML = guessesLeft;
 
 	// Reset list of letters guessed.
 	lettersGuessed = [];
-	document.getElementById('lettersGuessed').innerHTML = lettersGuessed;
+	document.getElementById('letters-guessed').innerHTML = lettersGuessed;
 };
-
-// Create the HTML that will be injected into <span> and displayed on the page.
-
-  // Display the word placeholder on our page.
-	    var currentWord = "<p>" + placeholder + "</p>";
-	    document.querySelector("#word-placeholder").innerHTML = currentWord;
-
-  // Display Wins value on page
-	    var winner = win;
-		document.querySelector("#wins-count").innerHTML = winner;
-
-  // Display Loses value on page
-	    var loss = lose;
-		document.querySelector("#losses-count").innerHTML = loss;
-
-  // Display Guesses Remaining value on page
-	    var guess = guessNumber;
-		document.querySelector("#guessRemain").innerHTML = guess;
-
-  // Display the Letters Already Guessed on page
-	    var guessedLetters = alreadyGuessed.toString();
-		document.querySelector("#lettersGuessed").innerHTML = guessedLetters;
-
-}; //<--ending keyup function curly brace
-
 

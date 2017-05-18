@@ -1,27 +1,53 @@
 <!DOCTYPE html>
 <html lang="en-us">
-<head>
-	<meta charset="character_set">
+  <head>
+    <!-- Document responsive across devices. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Document's character set. -->
+    <meta charset="UTF-8">
+    <title>Hangman Game</title>
+    <!-- Linking CSS -->
+    <!-- Linking Google Fonts -->
+  </head>
+  <body>
 
-	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<title>Hangman Game</title>
-</head>
-<body>
-<div class="header-container">
+    <div class="header-container">
       <header>HANGMAN</header>
     </div>
+
     <div class="main-container">
-      <div id="hangman-panel">
-        <p>PRESS ANY KEY TO START</p>
-        <p id="win-count"> WINS!</p>
-        <p id="loss-count"> LOSSES!</p>
-        <p id="word-placeholder">CURRENT WORD</p>
-        <p id="guessRemain">NUMBER OF GUESSES REMAINING</p>
-        <p id="lettersGuessed">LETTERS ALREADY GUESSED</p>
-      </div>
+      <section id="hangman-panel">
+        <p>
+          PRESS ANY KEY TO GET STARTED
+        </p>
+        <p>
+          WINS!
+        </p>
+        <p id="win-count">
+        </p>
+        <p>
+          LOSS
+        </p>
+        <p id="LOSS">
+        </p>
+        <p>
+          CURRENT WORD
+        </p>
+        <p id="word-placeholder">
+        </p>
+        <p>
+          NUMBER OF GUESSES REMAINING
+        </p>
+        <span id="guess-count">
+        </p>
+        <p>
+          LETTERS ALREADY GUESSED
+        </p>
+        <p id="letters-guessed">
+        </p>
+      </section>
     </div>
     <!-- Linking JavaScript-->
-<script src="assets/javascript/game.js" type="text/javascript"></script>  
-</body>
+      <script type="text/javascript" src="assets/javascript/games.js"></script>    
+  </body>
 </html>
