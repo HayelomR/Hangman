@@ -2,7 +2,7 @@ var wins = 0; loss = 0; correctGuessCount = 0;
 var placeholderArray = [];  wordPlaceholder = [];
 var lettersGuessed = [];
 var word = []; wordPlaceholderString = "";
-var userInput = "";
+var userGuess = "";
 var guessesLeft = 10;
 
 // Array of Star Wars Hangman words created from object.
@@ -14,9 +14,9 @@ document.onkeyup = function(event) {
   if (typeof event != 'undefined') {
     keyPress = event.keyCode;
     userInput = String.fromCharCode(keyPress).toUpperCase();//changes user input to upper case
-    trackLetterGuesses(userInput); // turcks user gusses
+    trackLetterGuesses(userGuess); // turcks user gusses
     // Build hangman word based on new user input.
-    buildWord(userInput);
+    buildWord(userGuess);
   }
 
   // No idea what this does, but seems to be needed.
@@ -29,6 +29,8 @@ document.onkeyup = function(event) {
 //Create array from randomly selected flower word Array.
 function createWord(flowers) {
   word = flowers[Math.floor(Math.random()*flowers.length)];
+  var split = word.split("");
+  word.splice(random, 1)
 
   //Create placeholder for word in monitor.
   createWordPlaceholder(word);
@@ -53,7 +55,7 @@ function createWordPlaceholder(word) {
 };
 
 // Keep track of user guesses and if letters once gussed,don,t truck it.
-function trackLetterGuesses(userInput) {
+function trackLetterGuesses(userGuess) {
   for (i = 0; i < lettersGuessed.length; i++) {
     if (userInput == lettersGuessed[i]) {
       return;
@@ -80,7 +82,7 @@ function trackLetterGuesses(userInput) {
 };
 
 // Builds hangman word as user guesses letters.
-function buildWord(userInput) {
+function buildWord(userGuess) {
 
   if (prevPlaceholderArray.length == 0) {
     placeholderArray = createWordPlaceholder(word);
@@ -92,8 +94,8 @@ function buildWord(userInput) {
   // Replace underscore with matching letter.
   for (var i = 0; i < word.length; i++) {
     console.log('Word is ' + word);
-    if (userInput == word[i]) {
-      placeholderArray[i] = userInput;
+    if (userGuess == word[i]) {
+      placeholderArray[i] = userGuess;
     }
   }
 
@@ -109,8 +111,8 @@ function buildWord(userInput) {
     restartGame();
   }
   if (placeholder.split(",") != word.join(" ")) {
-    losss++;
-    document.getElementById("losses").innerHTML = loss;
+    loss++;
+    document.getElementById("loss").innerHTML = loss;
     restartGame();
   }
 
@@ -118,7 +120,6 @@ function buildWord(userInput) {
 
 document.getElementById("#word-placeholder").innerHTML = currentWord;
 //display correct letters
-document.getElementById("#correctGuess").innerHTML = correctGuess;
   // Display Wins value on page
   document.getElementById("#wins").innerHTML = win;
 
