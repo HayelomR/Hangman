@@ -26,9 +26,9 @@ for (var i = 0; i < placeholder.length; i++) {
 	console.log (placeholder[i]);
 };
 // this Display word placeholder on  monitor.
-	document.getElementById("word-placeholder").textContent = wordPlaceholder;
+document.getElementById("word-placeholder").textContent = wordPlaceholder;
 //Creates array with the letters of the choosen word 
-  splitWord = pickedWord.split("");
+  splitWord = word.split("");
 //Counts the number of total letters in the randommly chosen word
   totalLetters = splitWord.length;
 
@@ -36,7 +36,13 @@ for (var i = 0; i < placeholder.length; i++) {
 
 document.onkeyup = function(event) {
 
-initializeGame();
+function initalizegame(){
+    wins = 0;
+   losses = 0;
+   guessesLeft = 10;
+
+	}
+
 // Keep track of user guesses.
 function trackLetterGuesses(userInput) {
 	for (i = 0; i < lettersGuessed.length; i++) {
@@ -65,7 +71,7 @@ function trackLetterGuesses(userInput) {
 // Comparing the user's guess to the letters contained in splitWord array (the picked word)
 for (var i = 0; i < splitWord.length; i++) {
 
-	if ((prevGuess()) ==false && (lettersOnly()==true)){
+	if ((lettersGuessed()) ==false && (lettersOnly()==true)){
 
 		if ((userGuess == splitWord[i])) {
 			alreadyGuessed.push(userGuess);
