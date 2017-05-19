@@ -1,4 +1,4 @@
-var wins = 0; lose = 0;
+var wins = 0; loss = 0;
 var placeholderArray = []; prevPlaceholderArray = []; wordPlaceholder = [];
 var lettersGuessed = [];
 var word = [];
@@ -14,18 +14,10 @@ var flowers = ["the","rose","jasmine","Dahlia","Magnolia","irses","Violet",
 createWord(flowers);
 document.onkeyup = function(event) {
   var keyPress;
-
   if (typeof event != 'undefined') {
     keyPress = event.keyCode;
-
-    // Convert user input key to upper case string.
-    userInput = String.fromCharCode(keyPress).toUpperCase();
-    console.log(userInput + " should match the key entered");
-
-    // Track user guesses over time.
-    trackLetterGuesses(userInput);
-
-
+    userInput = String.fromCharCode(keyPress).toUpperCase();//changes user input to upper case
+    trackLetterGuesses(userInput); // turcks user gusses
     // Build hangman word based on new user input.
     buildWord(userInput);
   }
@@ -37,8 +29,6 @@ document.onkeyup = function(event) {
   return false;
 
 };
-
-
 //Create array from randomly selected flower word Array.
 function createWord(flowers) {
   word = flowers[Math.floor(Math.random()*flowers.length)];
@@ -84,9 +74,6 @@ function trackLetterGuesses(userInput) {
   // Each guess reduces number of guesses left. 
   guessesLeft--;
   document.getElementById('guess-count').innerHTML = guessesLeft;
-  console.log('Guesses left' + guessesLeft);
-
-
   // Game restarts when no more guesses left.
   if (guessesLeft == 0) {
     restartGame();
@@ -98,28 +85,25 @@ function trackLetterGuesses(userInput) {
 // Builds hangman word as user guesses letters.
 function buildWord(userInput) {
 
-  // Initialize placeholder array to underscore placeholder.
   if (prevPlaceholderArray.length == 0) {
     placeholderArray = createWordPlaceholder(word);
 
-  // Makes it possible to see letters and underscores.
-  } else {
-    placeholderArray = prevPlaceholderArray;
-  }
+  // this makes letters and underscores to be seen.
+} else {
+  placeholderArray = prevPlaceholderArray;
+}
 
   // Replace underscore with matching letter.
   for (var i = 0; i < word.length; i++) {
     console.log('Word is ' + word);
     if (userInput == word[i]) {
-      console.log(userInput + " is in word at " + i);
-      //
       placeholderArray[i] = userInput;
     }
   }
 
   prevPlaceholderArray = placeholderArray;
 
-  // Convert placeholder array to string for display in UI.
+  // Convert placeholder array to string for display on a computer.
   placeholder = placeholderArray.join(" ");
   document.getElementById('word-placeholder').innerHTML = placeholder;
   
@@ -129,4 +113,20 @@ function buildWord(userInput) {
     document.getElementById('win-count').innerHTML = wins;
     restartGame();
   }
+
+//injecting HTML to our page.
+
+document.getElementById("#word-placeholder").innerHTML = currentWord;
+
+  // Display Wins value on page
+  document.getElementById("#win-count").innerHTML = win;
+
+  // Display Loses value on page
+  document.getElementById("#Loss-count").innerHTML = lose;
+
+  // Display Guesses Remaining value on page
+  document.getElementById("#Guess-count").innerHTML = guessNumber;
+
+  // Display the Letters Already Guessed on page
+  document.getElementByIdr("#letters-guessed").innerHTML = guessedLetters;
 };

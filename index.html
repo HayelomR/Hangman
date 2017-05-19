@@ -1,53 +1,25 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <!-- Document responsive across devices. -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Document's character set. -->
-    <meta charset="UTF-8">
-    <title>Hangman Game</title>
-    <!-- Linking CSS -->
-    <!-- Linking Google Fonts -->
-  </head>
-  <body>
-
-    <div class="header-container">
-      <header>HANGMAN</header>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Hangman Flowers Game</title>
+</head>
+<body>
+  <div class="header-container">
+    <header>FLOWERS HANGMAN</header>
     </div>
-
-    <div class="main-container">
-      <section id="hangman-panel">
-        <p>
-          PRESS ANY KEY TO GET STARTED
-        </p>
-
-
-        <p>
-          WINS!
-        </p>
-        <p id="win-count">
-          <p>
-          LOSS!
-        </p>
-        <p id="Loss-count">
-        </p>
-        <p>
-          CURRENT WORD
-        </p>
-        <p id="word-placeholder">
-        </p>
-        <p>
-          NUMBER OF GUESSES REMAINING
-        </p>
-        <p id="guess-count">
-        </p>
-        <p>
-          LETTERS ALREADY GUESSED
-        </p>
-        <p id="letters-guessed">
-        </p>
-      </section>
-    </div>
-  <script type="text/javascript" src="assets/javascript/games.js"></script>    
-  </body>
+  <div class="main-container">
+    <section id="flowers">
+      <p>PRESS ANY KEY TO GET STARTED</p>
+      <p> WINS = <span id="win-count"></span></p> 
+      <p> LOSS = <span id="Loss-count"></span></p>
+      <p>CURRENT WORD = <span id="word-placeholder"></span></p> 
+      <p>NUMBER OF GUESSES REMAINING = <span id="guess-count"></span></p> 
+      <p>LETTERS ALREADY GUESSED = <span id="letters-guessed"></span></p>
+    </div>  
+  </section>
+</div>
+<script type="text/javascript" src="assets/javascript/games.js"></script>    
+</body>
 </html>
