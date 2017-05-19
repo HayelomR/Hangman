@@ -1,17 +1,14 @@
-var wins = 0; loss = 0;
-var placeholderArray = []; prevPlaceholderArray = []; wordPlaceholder = [];
+var wins = 0; loss = 0; correctGuessCount = 0;
+var placeholderArray = [];  wordPlaceholder = [];
 var lettersGuessed = [];
-var word = [];
-var wordPlaceholderString = "";
+var word = []; wordPlaceholderString = "";
 var userInput = "";
-var correctGuessCount = 0;
-var guessesLeft = 13;
+var guessesLeft = 10;
 
 // Array of Star Wars Hangman words created from object.
 var flowers = ["the","rose","jasmine","Dahlia","Magnolia","irses","Violet",
 "marigold", "poppy","petuna","peony","camilia","cypress","lilac","tulip"];
 
-createWord(flowers);
 document.onkeyup = function(event) {
   var keyPress;
   if (typeof event != 'undefined') {
@@ -73,7 +70,7 @@ function trackLetterGuesses(userInput) {
 
   // Each guess reduces number of guesses left. 
   guessesLeft--;
-  document.getElementById('guess-count').innerHTML = guessesLeft;
+  document.getElementById('guesses').innerHTML = guessesLeft;
   // Game restarts when no more guesses left.
   if (guessesLeft == 0) {
     restartGame();
@@ -87,8 +84,7 @@ function buildWord(userInput) {
 
   if (prevPlaceholderArray.length == 0) {
     placeholderArray = createWordPlaceholder(word);
-
-  // this makes letters and underscores to be seen.
+  //this makes letters and underscores to be seen.
 } else {
   placeholderArray = prevPlaceholderArray;
 }
@@ -101,31 +97,36 @@ function buildWord(userInput) {
     }
   }
 
-  prevPlaceholderArray = placeholderArray;
 
   // Convert placeholder array to string for display on a computer.
   placeholder = placeholderArray.join(" ");
   document.getElementById('word-placeholder').innerHTML = placeholder;
   
   // User wins when placeholder matches word.
-  if (placeholder.split(',') == word.join(" ")) {
+  if (placeholder.split(",") == word.join(" ")) {
     wins++;
-    document.getElementById('win-count').innerHTML = wins;
+    document.getElementById("wins").innerHTML = wins;
+    restartGame();
+  }
+  if (placeholder.split(",") != word.join(" ")) {
+    losss++;
+    document.getElementById("losses").innerHTML = loss;
     restartGame();
   }
 
 //injecting HTML to our page.
 
 document.getElementById("#word-placeholder").innerHTML = currentWord;
-
+//display correct letters
+document.getElementById("#correctGuess").innerHTML = correctGuess;
   // Display Wins value on page
-  document.getElementById("#win-count").innerHTML = win;
+  document.getElementById("#wins").innerHTML = win;
 
   // Display Loses value on page
-  document.getElementById("#Loss-count").innerHTML = lose;
+  document.getElementById("#losses").innerHTML = lose;
 
   // Display Guesses Remaining value on page
-  document.getElementById("#Guess-count").innerHTML = guessNumber;
+  document.getElementById("#guesses").innerHTML = guessNumber;
 
   // Display the Letters Already Guessed on page
   document.getElementByIdr("#letters-guessed").innerHTML = guessedLetters;

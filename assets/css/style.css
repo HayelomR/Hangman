@@ -1,0 +1,15 @@
+header{
+	text-align: center;
+	font-size: 32px;
+	color: green;
+}
+.main-container{
+	margin-left: 40px;
+}
+p{
+	color: white;
+	padding-top: 20px;
+}
+.start{
+	text-align: center;
+}
