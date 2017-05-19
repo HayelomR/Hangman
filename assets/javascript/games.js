@@ -68,10 +68,11 @@ function trackLetterGuesses(userInput) {
 	return lettersGuessedString;
 };
 
+
 // Comparing the user's guess to the letters contained in splitWord array (the picked word)
 for (var i = 0; i < splitWord.length; i++) {
 
-	if ((lettersGuessed()) ==false && (lettersOnly()==true)){
+	if ((lettersGuesses()) ==false && (lettersOnly()==true)){
 
 		if ((userGuess == splitWord[i])) {
 			alreadyGuessed.push(userGuess);
@@ -117,6 +118,8 @@ for (var i = 0; i < splitWord.length; i++) {
 		document.getElementById("loss").innerHTML = losses;
 	};
 }
+
+
 // Restart game, initializing several values.
 function restartGame(wordPlaceholder) {
 	
