@@ -28,7 +28,7 @@ document.onkeyup = function(event) {
 };
 //Create array from randomly selected flower word Array.
 function createWord(flowers) {
-  word = flowers[Math.floor(Math.random()*flowers.length)];
+  wordplaceholder = flowers[Math.floor(Math.random()*flowers.length)];
   var split = word.split("");
   word.splice(random, 1)
 
@@ -112,7 +112,7 @@ function buildWord(userGuess) {
   }
   if (placeholder.split(",") != word.join(" ")) {
     loss++;
-    document.getElementById("loss").innerHTML = loss;
+    document.getElementById("losses").innerHTML = loss;
     restartGame();
   }
 
@@ -121,10 +121,10 @@ function buildWord(userGuess) {
 document.getElementById("#word-placeholder").innerHTML = currentWord;
 //display correct letters
   // Display Wins value on page
-  document.getElementById("#wins").innerHTML = win;
+  document.getElementById("#wins").innerHTML = wins;
 
   // Display Loses value on page
-  document.getElementById("#losses").innerHTML = lose;
+  document.getElementById("#losses").innerHTML = losse;
 
   // Display Guesses Remaining value on page
   document.getElementById("#guesses").innerHTML = guessNumber;
