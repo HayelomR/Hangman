@@ -26,7 +26,7 @@ for (var i = 0; i < placeholder.length; i++) {
 	console.log (placeholder[i]);
 };
 // this Display word placeholder on  monitor.
-	document.getElementById("word-placeholder").textContent = wordPlaceholderString;
+	document.getElementById("word-placeholder").textContent = wordPlaceholder;
 //Creates array with the letters of the choosen word 
   splitWord = pickedWord.split("");
 //Counts the number of total letters in the randommly chosen word
