@@ -1,36 +1,33 @@
-var wins = 0;
+var wins = 0;//inital win starts with zero
+var losses = 0;// intital won starts with zero
 var placeholderArray = [];
 var prevPlaceholderArray = [];
 var wordPlaceholder = [];// holds words both for the computer and the user
 var lettersGuessed = [];
-var word = [];
-var wordPlaceholderString = "";
+var word = [];// the array that will be created from array flowers
 var userInput = "";
 var correctGuessCount = 0;
 var guessesLeft = 10;
 
-var wordArray =  [ "the","rose","jasmine","Dahlia","Magnolia","irses","Violet",
+var flowers = ["the","rose","jasmine","Dahlia","Magnolia","irses","Violet",
 "marigold", "poppy","petuna","peony","camilia","cypress","lilac","tulip"];
 
 
 // lets create an array randomly chosen words for the user to guess
+var randomWord = Math.floor(Math.random()*flowers.length);
 
-for (var i = 0; i < wordArray.length; i++) {
-	word = wordArray[Math.floor(Math.random()*wordArray.length)];
-	userInput = wordArray[index];
+	word = flowers[randomWord];
 			// remove the chosen word from array
-			wordsArray.splice(index, 1);
-		};
-
+			flowers.splice(randomWord, 1);
 // generate a place holder for the computer to guess.
-placeholder = pickedWord.split("");
+placeholder = word.split("");
 for (var i = 0; i < placeholder.length; i++) {
 	placeholder[i] = " _";
 	console.log (placeholder[i]);
 };
-	// Display word placeholder on  monitor.
-	document.getElementById('word-placeholder').textContent = wordPlaceholderString;
-//Creates array with the letters of the choosen word as my "master"
+// this Display word placeholder on  monitor.
+	document.getElementById("word-placeholder").textContent = wordPlaceholderString;
+//Creates array with the letters of the choosen word 
   splitWord = pickedWord.split("");
 //Counts the number of total letters in the randommly chosen word
   totalLetters = splitWord.length;
@@ -47,10 +44,8 @@ function trackLetterGuesses(userInput) {
 			return;
 		}
 	}
-
 	// Push letter guessed.
 	lettersGuessed.push(userInput);
-	
 	// Convert letters guessed array to string for displaying in UI.
 	var lettersGuessedString = lettersGuessed.join(", ");
 	document.getElementById("letters-guessed").innerHTML = lettersGuessedString;
@@ -64,7 +59,6 @@ function trackLetterGuesses(userInput) {
 	if (guessesLeft == 0) {
 		restartGame();
 	}
-
 	return lettersGuessedString;
 };
 
@@ -80,7 +74,6 @@ for (var i = 0; i < splitWord.length; i++) {
 			console.log("keep gusseing");
 		}
 
-
 		else if ((userGuess != splitWord[i])) {
 			guessNumber--;
 			letters-guessed.push(userGuess);
@@ -89,8 +82,8 @@ for (var i = 0; i < splitWord.length; i++) {
 		else if ((prevGuess() == true) || (lettersOnly()==false)) { 
 			console.log("Keep guessing");
 		}
-
-}
+	}
+};
 
 
 // Get the "_" to change back to the letter guessed
@@ -102,34 +95,27 @@ for (var i = 0; i < splitWord.length; i++) {
 };
 
 
-// Check if user won or loss
+// the following function will check if the user won or loss.
 correctLetters = 0;
-
-
 for (var i = 0; i < splitWord.length; i++) {
-
-
 	if ((splitWord[i] == placeholder[i])){
 		correctLetters++;
-		document.getElementById('win-count').innerHTML = wins;
-
 		if ((totalLetters == correctLetters) && (guessNumber > 0)) {
-
 			win++;
 			document.getElementById("win-count").innerHTML = wins;
 		}
 
+
 	} else if ((totalLetters !== correctLetters) && (guessNumber <= 0)) {
 		lose++;
-		document.getElementById("loss").innerHTML = wins;
-
+		document.getElementById("loss").innerHTML = losses;
 	};
-
+}
 // Restart game, initializing several values.
 function restartGame(wordPlaceholder) {
 	
 	// Add new word.
-	createWord(wordArray);
+	createWord(flowers);
 
 	//Empty user input and placeholder values.
 	userInput = "";
@@ -151,3 +137,4 @@ function restartGame(wordPlaceholder) {
 
 
 };
+
