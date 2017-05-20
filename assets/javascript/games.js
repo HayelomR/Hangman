@@ -1,4 +1,4 @@
-var wins = 0; loss = 0; correctGuessCount = 0;
+var win = 0; loss = 0; correctGuessCount = 0;
 var placeholderArray = [];  wordPlaceholder = [];
 var lettersGuessed = [];
 var word = []; wordPlaceholderString = "";
@@ -6,8 +6,8 @@ var userGuess = "";
 var guessesLeft = 10;
 
 // Array of Star Wars Hangman words created from object.
-var flowers = ["the","rose","jasmine","Dahlia","Magnolia","irses","Violet",
-"marigold", "poppy","petuna","peony","camilia","cypress","lilac","tulip"];
+var flowers = ["rose","jasmine","Dahlia","Magnolia","irses","Violet",
+"marigold", "poppy","petuna","peony","camilia","cypress","lilac","tulip","lily"];
 
 document.onkeyup = function(event) {
   var keyPress;
@@ -118,17 +118,17 @@ function buildWord(userGuess) {
 
 //injecting HTML to our page.
 
-document.getElementById("#word-placeholder").innerHTML = currentWord;
+document.getElementById("word-placeholder").innerHTML = currentWord;
 //display correct letters
   // Display Wins value on page
-  document.getElementById("#wins").innerHTML = wins;
+  document.getElementById("wins").innerHTML = win;
 
   // Display Loses value on page
-  document.getElementById("#losses").innerHTML = losse;
+  document.getElementById("losses").innerHTML = lose;
 
   // Display Guesses Remaining value on page
-  document.getElementById("#guesses").innerHTML = guessNumber;
+  document.getElementById("guesses").innerHTML = guessNumber;
 
   // Display the Letters Already Guessed on page
-  document.getElementByIdr("#letters-guessed").innerHTML = guessedLetters;
+  document.getElementByIdr("letters-guessed").innerHTML = guessedLetters;
 };
