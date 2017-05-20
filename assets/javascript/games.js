@@ -1,134 +1,156 @@
-var win = 0; loss = 0; correctGuessCount = 0;
-var placeholderArray = [];  wordPlaceholder = [];
-var lettersGuessed = [];
-var word = []; wordPlaceholderString = "";
-var userGuess = "";
-var guessesLeft = 10;
-
+var win = 0;// counts letters for win
+var lose = 0;// counts letters for win
+var pickedWord; // a word chosen for the user to guess
+var placeholder; // a place for the word the computer choose
+var splitWord; //compares letter that user is guessing
+var totalLetters; 
+var guessNumber; // how many times the player gussed
+var userGuess;// number of times where the use guses
+var alreadyGuessed = [];//letters that are already gusssed
+var correctLetters = 0;//
 // Array of Star Wars Hangman words created from object.
-var flowers = ["rose","jasmine","Dahlia","Magnolia","irses","Violet",
-"marigold", "poppy","petuna","peony","camilia","cypress","lilac","tulip","lily"];
+var flowers = ["ROSE","JASMINE","DAHLIA","MAGNOLIA","IRSES","VIOLET",
+"MARIGLOD", "POPPY","PETUNA","PEONY","CAMILIA","CYPRESS","LILAC","TULIP"];
+
+//function that used to start the game 
+function initializeGame() {
+guessNumber = 10;
+alreadyGuessed = [];
+correctLetters = 0;
+//Randomly choose a word for the user to guess
+    pickedWord = flowers[Math.floor(Math.random()*flowers.length)];
+    console.log("pickedWord is " + pickedWord + ", index position " + flowers.indexOf(pickedWord));
+    flowers.splice(pickedWord, 0);  // This removes the picked element from the array
+
+//Generate placeholder text for the word the computer chooses
+    placeholder = pickedWord.split("");
+    for (var i = 0; i < placeholder.length; i++) {
+      placeholder[i] = " _";
+      // console.log (placeholder[i]);
+
+    };  
+  
+  splitWord = pickedWord.split("");
+  totalLetters = splitWord.length;  
+
+}; //ending initialize() brace
+initializeGame();
+
+// Check if user input is only alphabet keys
+function lettersOnly() {
+  var charCode = event.keyCode;
+  if ((charCode > 64 && charCode < 91)) {
+    console.log("You pressed alphabet key");
+    return true;
+  } else {
+    console.log("Please press a letter key only");
+    return false;
+  }
+  
+};
 
 document.onkeyup = function(event) {
-  var keyPress;
-  if (typeof event != 'undefined') {
-    keyPress = event.keyCode;
-    userInput = String.fromCharCode(keyPress).toUpperCase();//changes user input to upper case
-    trackLetterGuesses(userGuess); // turcks user gusses
-    // Build hangman word based on new user input.
-    buildWord(userGuess);
+// Determine which key was pressed
+var userGuess = event.key.toUpperCase();
+    console.log(userGuess + " UPPERCASE LETTER");
+
+function prevGuess () {
+  if (alreadyGuessed.includes(userGuess)) { 
+    return true;
   }
-
-  // No idea what this does, but seems to be needed.
-  else if (e) {
-    keyPress = e.which;
+  else { 
+    return false;
   }
-  return false;
-
-};
-//Create array from randomly selected flower word Array.
-function createWord(flowers) {
-  wordplaceholder = flowers[Math.floor(Math.random()*flowers.length)];
-  var split = word.split("");
-  word.splice(random, 1)
-
-  //Create placeholder for word in monitor.
-  createWordPlaceholder(word);
-  return word;
 };
 
-//Create placeholder for word on computer.
-function createWordPlaceholder(word) {  
-  var wordPlaceholder = [];
-
-  // Fill array with underscores.
-  for (i = 0; i < word.length; i++) {
-    wordPlaceholder.push("_");
+if (lettersOnly() == true) {
+  console.log("You pressed alphabet key")
+  }
+  else {
+  console.log("Please press a letter key only")
   }
 
-  // Convert word placeholder array to string for displaying in UI.
-  wordPlaceholderString = wordPlaceholder.join(" ");
 
-  // Display word placeholder in UI.
-  document.getElementById('word-placeholder').textContent = wordPlaceholderString;
-  return wordPlaceholder;
-};
+// Comparing the user's guess to the letters contained in splitWord array (the picked word)
+  for (var i = 0; i < splitWord.length; i++) {
+    
+    if ((prevGuess()) ==false && (lettersOnly()==true)){
 
-// Keep track of user guesses and if letters once gussed,don,t truck it.
-function trackLetterGuesses(userGuess) {
-  for (i = 0; i < lettersGuessed.length; i++) {
-    if (userInput == lettersGuessed[i]) {
-      return;
+      if ((userGuess == splitWord[i])) {
+      // console.log ("You guessed " + userGuess);
+      alreadyGuessed.push(userGuess);
+      }
+      else if ((userGuess == splitWord[i]) && (prevGuess()==true) && (lettersOnly()==true)) {
+      console.log("keep going");
+      }
+
+// can there be a second part to the for loop here?
+    else if ((userGuess != splitWord[i])) {
+      // console.log("Wrong guess.")
+      guessNumber--;
+      alreadyGuessed.push(userGuess);
     }
+
+    else if ((prevGuess() == true) || (lettersOnly()==false)) { 
+      console.log("Keep guessing");
+    }
+
+    else {
+      // return false;
+      console.log("not sure what to do")
+      } 
   }
-
-  // Push letter guessed.
-  lettersGuessed.push(userInput);
-  console.log("LettersGuessed array item: " + lettersGuessed[0]);
-  
-  // Convert letters guessed array to string to be displayed on monitor.
-  var lettersGuessedString = lettersGuessed.join(", ");
-  document.getElementById('letters-guessed').innerHTML = lettersGuessedString;
-
-  // Each guess reduces number of guesses left. 
-  guessesLeft--;
-  document.getElementById('guesses').innerHTML = guessesLeft;
-  // Game restarts when no more guesses left.
-  if (guessesLeft == 0) {
-    restartGame();
-  }
-
-  return lettersGuessedString;
 };
 
-// Builds hangman word as user guesses letters.
-function buildWord(userGuess) {
+// Get the "_" to change back to the letter guessed
+  for (var i = 0; i < splitWord.length; i++) {
+    if (splitWord[i] == userGuess) {
+      placeholder[i]=placeholder[i].replace(' _', userGuess);
+      console.log(placeholder[i]);
+      }
+    };
+    // Check if user won or loss
+correctLetters = 0;
 
-  if (prevPlaceholderArray.length == 0) {
-    placeholderArray = createWordPlaceholder(word);
-  //this makes letters and underscores to be seen.
-} else {
-  placeholderArray = prevPlaceholderArray;
-}
-
-  // Replace underscore with matching letter.
-  for (var i = 0; i < word.length; i++) {
-    console.log('Word is ' + word);
-    if (userGuess == word[i]) {
-      placeholderArray[i] = userGuess;
-    }
-  }
+console.log("pickedWord is " + pickedWord + ", index position " + flowers.indexOf(pickedWord));
+for (var i = 0; i < splitWord.length; i++) {
 
 
-  // Convert placeholder array to string for display on a computer.
-  placeholder = placeholderArray.join(" ");
-  document.getElementById('word-placeholder').innerHTML = placeholder;
-  
-  // User wins when placeholder matches word.
-  if (placeholder.split(",") == word.join(" ")) {
-    wins++;
-    document.getElementById("wins").innerHTML = wins;
-    restartGame();
-  }
-  if (placeholder.split(",") != word.join(" ")) {
-    loss++;
-    document.getElementById("losses").innerHTML = loss;
-    restartGame();
-  }
+    if ((splitWord[i] == placeholder[i])){
+      correctLetters++;
+      console.log("correct letters value: " + correctLetters);
+      
+      if ((totalLetters == correctLetters) && (guessNumber > 0)) {
+        console.log("Congratulations!")
+        win++;
+        document.querySelector("#answer").innerHTML = "<p><strong>The correct word was: " + pickedWord +"</strong></p>";
+        //document.querySelector("#imgPlaceholder").innerHTML = '<img src="' + imgArray[theWord.indexOf(pickedWord)] + '">'
+        initializeGame();
+      }
+
+    } else if ((totalLetters !== correctLetters) && (guessNumber <= 0)) {
+      console.log("You lose")
+      lose++;
+
+      //document.querySelector("#imgPlaceholder").innerHTML = '<img src="' + imgArray[theWord.indexOf(pickedWord)] + '">'
+      initializeGame();
+      }
+};
 
 //injecting HTML to our page.
-
-document.getElementById("word-placeholder").innerHTML = currentWord;
+ var currentWord = "<p>" + placeholder.join('') + "</p>";
+document.querySelector("#word-placeholder").innerHTML = currentWord;
 //display correct letters
   // Display Wins value on page
-  document.getElementById("wins").innerHTML = win;
+  document.querySelector("#win").innerHTML = win;
 
   // Display Loses value on page
-  document.getElementById("losses").innerHTML = lose;
+  document.querySelector("#losses").innerHTML = lose;
 
   // Display Guesses Remaining value on page
-  document.getElementById("guesses").innerHTML = guessNumber;
+  document.querySelector("#guesses").innerHTML = guessNumber;
 
   // Display the Letters Already Guessed on page
-  document.getElementByIdr("letters-guessed").innerHTML = guessedLetters;
+     var guessedLetters = alreadyGuessed.toString();
+  document.querySelector("#letters-guessed").innerHTML = guessedLetters;
 };
