@@ -2,7 +2,7 @@
 var win = 0;// counts letters for win
 var lose = 0;// counts letters for win
 var chosenWord; // a word chosen for the user to guess
-var placeholder; // a place for the word the computer choose
+var placeholder; // a place for the word the computer chooses
 var gussWord; //compares letter that user is guessing
 var totalLetters; 
 var guessNumber; // how many times the player gussed
@@ -10,8 +10,9 @@ var userGuess;// number of times where the use guses
 var alreadyGuessed = [];//letters that are already gusssed
 var correctLetters = 0;//
 
-var flowers = ["rose","jasmine","dahlia","magnolia","irses","violet",
-"marigold", "poppy","petuna","peony","camilia","cypress","lilac","tulip"];
+var flowers = ["ROSE","JASMINE","DAHLIA","MAGNOLIA","IRSES","VIOLET",
+"MARIGLOD", "POPPY","PETUNA","PEONY","CAMILIA","CYPRESS","LILAC","TULIP"];
+
 //create function initialize
 function initializeGame() {
   guessNumber = 10;
@@ -56,8 +57,18 @@ initializeGame();
 
 // When the user presses a key, it will run the following functions...
 document.onkeyup = function(event) {
-  userGuess = event.key
+  
 // Comparing the user's guess to the letters contained in splitWord array (the picked word)
+var keyPress;
+  if (typeof event != 'undefined') {
+    keyPress = event.keyCode;
+    userGuess = String.fromCharCode(keyPress).toUpperCase();
+    //console.log(userInput + " should match the key entered");
+
+}
+    // Convert user input key to upper case string.
+    userInput = String.fromCharCode(keyPress).toUpperCase();
+    console.log(userInput + " should match the key entered");
 if ((prevGuess()===false) && (lettersOnly())) {
 
   if (gussWord.includes(userGuess)) {
