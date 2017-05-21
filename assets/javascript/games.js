@@ -57,18 +57,14 @@ initializeGame();
 
 // When the user presses a key, it will run the following functions...
 document.onkeyup = function(event) {
-  
-// Comparing the user's guess to the letters contained in splitWord array (the picked word)
 var keyPress;
-  if (typeof event != 'undefined') {
+  if (typeof event != 'undefined') { // this helps the user to type lower or upper case
     keyPress = event.keyCode;
     userGuess = String.fromCharCode(keyPress).toUpperCase();
-    //console.log(userInput + " should match the key entered");
-
 }
     // Convert user input key to upper case string.
     userInput = String.fromCharCode(keyPress).toUpperCase();
-    console.log(userInput + " should match the key entered");
+    //console.log(userGuss + " should match the key entered");
 if ((prevGuess()===false) && (lettersOnly())) {
 
   if (gussWord.includes(userGuess)) {
@@ -89,7 +85,7 @@ for (var i = 0; i < gussWord.length; i++) {
   }
 };
 
-// Check if user won or loss
+// this helps to identify the correct and wrong word
 correctLetters = 0;
 for (var i = 0; i < gussWord.length; i++) {
 
@@ -97,13 +93,13 @@ for (var i = 0; i < gussWord.length; i++) {
     correctLetters++;
 
     if ((totalLetters == correctLetters) && (guessNumber > 0)) {
-      console.log("Congratulations!")
+      //console.log("Congratulations!")
       win++;
       initializeGame();
     }
 
   } else if ((totalLetters !== correctLetters) && (guessNumber <= 0)) {
-    console.log("You lose.")
+    //console.log("You lose.")
     lose++;
     initializeGame();
   }
