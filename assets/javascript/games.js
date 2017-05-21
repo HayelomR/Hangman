@@ -21,11 +21,14 @@ for (var i = 0; i < flowers.length; i++) {
     chosenWord = flowers[Math.floor(Math.random() * flowers.length)];    
     flowers.splice(chosenWord, 0); //remove picked element from array 
     }
+    
 //placeholder for the word the computer chooses
 placeholder = chosenWord.split("");
 for (var i = 0; i < placeholder.length; i++) {
   placeholder[i] = " _";
 };  
+
+
 //Creates array with the letters of the choosen word 
 gussWord = chosenWord.split("");
 totalLetters = gussWord.length;  
