@@ -23,3 +23,11 @@ p{
   height: 50px;
   background-color: #666666;
 }
+
+#word-placeholder{
+	margin:10px;
+}
+/*img{
+length = 200px;
+width = 200px;
+}

@@ -1,4 +1,3 @@
-
 var win = 0;// counts letters for win
 var lose = 0;// counts letters for win
 var chosenWord; // a word chosen for the user to guess
@@ -8,19 +7,20 @@ var totalLetters;
 var guessNumber; // how many times the player gussed
 var userGuess;// number of times where the use guses
 var alreadyGuessed = [];//letters that are already gusssed
-var correctLetters = 0;//
+var rightLetters = 0;//
 
 var flowers = ["ROSE","JASMINE","DAHLIA","MAGNOLIA","IRSES","VIOLET",
 "MARIGLOD", "POPPY","PETUNA","PEONY","CAMILIA","CYPRESS","LILAC","TULIP"];
 
 //create function initialize
-function initializeGame() {
+function gameRestart() {
   guessNumber = 10;
   alreadyGuessed = [];
-  correctLetters = 0;
  //create random word for the user to guess
- chosenWord = flowers[Math.floor(Math.random()*flowers.length)];
-    flowers.splice(chosenWord, 0);  // removes the chosen element from the array
+for (var i = 0; i < flowers.length; i++) {
+    chosenWord = flowers[Math.floor(Math.random() * flowers.length)];    
+    flowers.splice(chosenWord, 0); //remove picked element from array 
+    }
 //placeholder for the word the computer chooses
 placeholder = chosenWord.split("");
 for (var i = 0; i < placeholder.length; i++) {
@@ -28,10 +28,8 @@ for (var i = 0; i < placeholder.length; i++) {
 };  
 //Creates array with the letters of the choosen word 
 gussWord = chosenWord.split("");
-//console.log("The answer is " + gussWord;
 totalLetters = gussWord.length;  
-
-}; // this ends the function
+};
 
 // this helps the user the user to see if they use on alpahabets
 function lettersOnly() {
@@ -53,17 +51,15 @@ function prevGuess () {
   }
 };
 
-initializeGame();
+gameRestart();
 
 // When the user presses a key, it will run the following functions...
 document.onkeyup = function(event) {
 var keyPress;
   if (typeof event != 'undefined') { // this helps the user to type lower or upper case
     keyPress = event.keyCode;
-    userGuess = String.fromCharCode(keyPress).toUpperCase();
-}
-    // Convert user input key to upper case string.
-    userInput = String.fromCharCode(keyPress).toUpperCase();
+    userGuess = String.fromCharCode(keyPress).toUpperCase();    // Convert user input key to upper case string.
+}  
     //console.log(userGuss + " should match the key entered");
 if ((prevGuess()===false) && (lettersOnly())) {
 
@@ -76,6 +72,7 @@ if ((prevGuess()===false) && (lettersOnly())) {
       guessNumber--;
       alreadyGuessed.push(userGuess);
     }
+      guessedLetters = alreadyGuessed.toString();
   };
 
 // Get the "_" to change back to the letter guessed
@@ -85,28 +82,26 @@ for (var i = 0; i < gussWord.length; i++) {
   }
 };
 
-// this helps to identify the correct and wrong word
-correctLetters = 0;
+rightLetters = 0; // this helps to identify the correct and wrong word
+
 for (var i = 0; i < gussWord.length; i++) {
 
   if ((gussWord[i] == placeholder[i])){
-    correctLetters++;
+    rightLetters++;
 
-    if ((totalLetters == correctLetters) && (guessNumber > 0)) {
+    if ((totalLetters == rightLetters) && (guessNumber > 0)) {
       //console.log("Congratulations!")
       win++;
-      initializeGame();
+     gameRestart();
     }
 
-  } else if ((totalLetters !== correctLetters) && (guessNumber <= 0)) {
+  } else if ((totalLetters !== rightLetters) && (guessNumber <= 0)) {
     //console.log("You lose.")
     lose++;
-    initializeGame();
+   gameRestart();
   }
+   currentWord = placeholder.join('')  // creates a place for the word
 };
-
-// connecting the html page with our javascript
-currentWord = "<p>" + placeholder.join('') + "</p>";//this is  word placeholder for our page.
 
 // connecting the html page with our javascript
 document.getElementById("word-placeholder").innerHTML = currentWord;
@@ -121,7 +116,6 @@ document.getElementById("word-placeholder").innerHTML = currentWord;
   document.getElementById("guesses-remained").innerHTML = guessNumber;
 
   // Display the Letters Already Guessed on page
-  var guessedLetters = alreadyGuessed.toString();
   document.getElementById("guessed-letters").innerHTML = guessedLetters;
 
-}; //ENDING KEYUP BRACE
+}; //ENDS ALL THE ACTIVITY And key up function
