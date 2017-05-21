@@ -103,8 +103,8 @@ for (var i = 0; i < gussWord.length; i++) {
       //console.log("Congratulations!")
       win++;
        /* $(document).ready(function(){
-      $('#sassets/img').on("click", function(){
-         $('#imgs').show('slow');
+      $('#assets/img').on("click", function(){
+         $('#imgs').show('fast');
       });
     });       */
     gameStart();
@@ -114,8 +114,8 @@ for (var i = 0; i < gussWord.length; i++) {
     //console.log("You lose.")
     lose++;
     /* $(document).ready(function(){
-      $('#sassets/img').on("click", function(){
-         $('#imgs').show('slow');
+      $('#assets/img').on("click", function(){
+         $('#imgs').show('fast');
       });
     }); 
 
