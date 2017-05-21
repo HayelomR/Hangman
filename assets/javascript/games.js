@@ -11,38 +11,44 @@ var rightLetters = 0;//
 
 var flowers = ["ROSE","JASMINE","DAHLIA","MAGNOLIA","IRSES","VIOLET",
 "MARIGLOD", "POPPY","PETUNA","PEONY","CAMILIA","CYPRESS","LILAC","TULIP"];
-
 //create function initialize
-function gameRestart() {
+function gameStart() {
   guessNumber = 10;
   alreadyGuessed = [];
  //create random word for the user to guess
-for (var i = 0; i < flowers.length; i++) {
-    chosenWord = flowers[Math.floor(Math.random() * flowers.length)];    
+ for (var i = 0; i < flowers.length; i++) {
+  chosenWord = flowers[Math.floor(Math.random() * flowers.length)];    
     flowers.splice(chosenWord, 0); //remove picked element from array 
-    }
-    
+  }
+
 //placeholder for the word the computer chooses
 placeholder = chosenWord.split("");
 for (var i = 0; i < placeholder.length; i++) {
   placeholder[i] = " _";
-};  
-
-
+}; 
 //Creates array with the letters of the choosen word 
 gussWord = chosenWord.split("");
 totalLetters = gussWord.length;  
 };
-
-// this helps the user the user to see if they use on alpahabets
-function lettersOnly() {
-  var charCode = event.keyCode;
-  if ((charCode > 64 && charCode < 91)) {
-    return true;
-  } else {
-    return false;
+ // this helps the user to see if they use on alpahabets
+ function lettersOnly(e, t) {
+  try {
+    if (window.event) {
+      var charCode = window.event.keyCode;
+    }
+    else if (e) {
+      var charCode = e.which;
+    }
+    else { return true; }
+    if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+      return true;
+    else
+      return false;
   }
-};
+  catch (err) {
+    alert(err.Description);
+  }
+}
 
 function prevGuess () {
   var userGuess = event.key;
@@ -54,28 +60,29 @@ function prevGuess () {
   }
 };
 
-gameRestart();
+gameStart();
 
 // When the user presses a key, it will run the following functions...
 document.onkeyup = function(event) {
-var keyPress;
+  var keyPress;
   if (typeof event != 'undefined') { // this helps the user to type lower or upper case
     keyPress = event.keyCode;
     userGuess = String.fromCharCode(keyPress).toUpperCase();    // Convert user input key to upper case string.
-}  
+  }  
     //console.log(userGuss + " should match the key entered");
-if ((prevGuess()===false) && (lettersOnly())) {
 
-  if (gussWord.includes(userGuess)) {
-      alreadyGuessed.push(userGuess);
-    }
+    if ((prevGuess()===false) && (lettersOnly())) {
 
-    else if (gussWord != userGuess) {
+      if (gussWord.includes(userGuess)) {
+        alreadyGuessed.push(userGuess);
+      }
+
+      else if (gussWord != userGuess) {
       // console.log("Wrong guess.");
       guessNumber--;
       alreadyGuessed.push(userGuess);
     }
-      guessedLetters = alreadyGuessed.toString();
+
   };
 
 // Get the "_" to change back to the letter guessed
@@ -95,30 +102,38 @@ for (var i = 0; i < gussWord.length; i++) {
     if ((totalLetters == rightLetters) && (guessNumber > 0)) {
       //console.log("Congratulations!")
       win++;
-     gameRestart();
-    }
+       /* $(document).ready(function(){
+      $('#sassets/img').on("click", function(){
+         $('#imgs').show('slow');
+      });
+    });       */
+    gameStart();
+  }
 
-  } else if ((totalLetters !== rightLetters) && (guessNumber <= 0)) {
+} else if ((totalLetters !== rightLetters) && (guessNumber <= 0)) {
     //console.log("You lose.")
     lose++;
-   gameRestart();
+    /* $(document).ready(function(){
+      $('#sassets/img').on("click", function(){
+         $('#imgs').show('slow');
+      });
+    }); 
+
+     */
+
+    gameStart();
   }
    currentWord = placeholder.join('')  // creates a place for the word
-};
+ };
+currentWord = placeholder.join('') // clears a place holder with other connections
+guessedLetters = alreadyGuessed.toString();// clears the current letter as soon as possible
 
-// connecting the html page with our javascript
+
+// connecting the html page with our javascript & diplays every value.
 document.getElementById("word-placeholder").innerHTML = currentWord;
-
-  // Display Wins value on page
-  document.getElementById("won").innerHTML = win;
-
-  // Display Loses value on page
-  document.getElementById("los").innerHTML = lose;
-
-  // Display Guesses Remaining value on page
-  document.getElementById("guesses-remained").innerHTML = guessNumber;
-
-  // Display the Letters Already Guessed on page
-  document.getElementById("guessed-letters").innerHTML = guessedLetters;
+document.getElementById("won").innerHTML = win;
+document.getElementById("los").innerHTML = lose;
+document.getElementById("guesses-remained").innerHTML = guessNumber;
+document.getElementById("guessed-letters").innerHTML = guessedLetters;
 
 }; //ENDS ALL THE ACTIVITY And key up function
