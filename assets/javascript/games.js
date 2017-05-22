@@ -9,8 +9,10 @@ var userGuess;// number of times where the use guses
 var alreadyGuessed = [];//letters that are already gusssed
 var rightLetters = 0;//
 
-var flowers = ["ROSE","JASMINE","DAHLIA","MAGNOLIA","IRSES","VIOLET",
-"MARIGLOD", "POPPY","PETUNA","PEONY","CAMILIA","CYPRESS","LILAC","TULIP"];
+var flowers = [ "CAMILIA","CYPRESS","DAHLIA",
+"IRSES","JASMINE","LILAC","LILY","MAGNOLIA","MARIGLOD","PEONY",
+"PETUNA","POPPY","ROSE","TULIP","VIOLET",
+];
 //create function initialize
 function gameStart() {
   guessNumber = 10;

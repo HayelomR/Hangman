@@ -25,9 +25,11 @@ p{
   background-color: #666666;
 }
 
-#word-placeholder{
+#word-placeholder {
 	margin:10px;
 }
+#img {
+padding-bottom: 1px;}
 /*img{
 length = 200px;
 width = 200px;
