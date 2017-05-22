@@ -26,10 +26,15 @@ placeholder = chosenWord.split("");
 for (var i = 0; i < placeholder.length; i++) {
   placeholder[i] = " _";
 }; 
+("#img").attr("src", "assets/images/"+chosenWord.toLowerCase()+".jpg");
+  $("#img").hide();
 //Creates array with the letters of the choosen word 
 gussWord = chosenWord.split("");
 totalLetters = gussWord.length;  
 };
+
+//("#img").attr("src", "assets/images/"+chosenWord.toLowerCase()+".jpg");
+  //$("#img").hide();
  // this helps the user to see if they use on alpahabets
  function lettersOnly(e, t) {
   try {
@@ -102,24 +107,14 @@ for (var i = 0; i < gussWord.length; i++) {
     if ((totalLetters == rightLetters) && (guessNumber > 0)) {
       //console.log("Congratulations!")
       win++;
-       /* $(document).ready(function(){
-      $('#assets/img').on("click", function(){
-         $('#imgs').show('fast');
-      });
-    });       */
+    $("#img").show('fast');
     gameStart();
   }
 
 } else if ((totalLetters !== rightLetters) && (guessNumber <= 0)) {
     //console.log("You lose.")
     lose++;
-    /* $(document).ready(function(){
-      $('#assets/img').on("click", function(){
-         $('#imgs').show('fast');
-      });
-    }); 
-
-     */
+    $("#img").show('fast');
 
     gameStart();
   }
