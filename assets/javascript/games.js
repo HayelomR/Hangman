@@ -20,14 +20,15 @@ function gameStart() {
   chosenWord = flowers[Math.floor(Math.random() * flowers.length)];    
     flowers.splice(chosenWord, 0); //remove picked element from array 
   }
-
+$("#img").attr("src", "assets/images/"+chosenWord.toLowerCase()+".jpg");
+  $("#img").hide();
 //placeholder for the word the computer chooses
 placeholder = chosenWord.split("");
 for (var i = 0; i < placeholder.length; i++) {
   placeholder[i] = " _";
 }; 
-("#img").attr("src", "assets/images/"+chosenWord.toLowerCase()+".jpg");
-  $("#img").hide();
+//$("#img").attr("src", "assets/images/"+chosenWord.toLowerCase()+".jpg");
+  //$("#img").hide();
 //Creates array with the letters of the choosen word 
 gussWord = chosenWord.split("");
 totalLetters = gussWord.length;  
@@ -107,7 +108,7 @@ for (var i = 0; i < gussWord.length; i++) {
     if ((totalLetters == rightLetters) && (guessNumber > 0)) {
       //console.log("Congratulations!")
       win++;
-    $("#img").show('fast');
+   $("#img").show('fast');
     gameStart();
   }
 
