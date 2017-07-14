@@ -1,9 +1,9 @@
 var win = 0;// counts letters for win
-var lose = 0;// counts letters for win
+var lose = 0;// counts letters for loss
 var chosenWord; // a word chosen for the user to guess
 var placeholder; // a place for the word the computer chooses
 var gussWord; //compares letter that user is guessing
-var totalLetters; 
+var totalLetters; //number of letters needed to guess the new word
 var guessNumber; // how many times the player gussed
 var userGuess;// number of times where the use guses
 var alreadyGuessed = [];//letters that are already gusssed
@@ -20,8 +20,9 @@ function gameStart() {
  //create random word for the user to guess
  for (var i = 0; i < flowers.length; i++) {
   chosenWord = flowers[Math.floor(Math.random() * flowers.length)];    
-    flowers.splice(chosenWord, 0); //remove picked element from array 
-  }
+    flowers.splice(chosenWord, 0); //remove picked element from array and replace it with the chosen word
+  }// ends the intialize game
+  
 $("#img").attr("src", "assets/images/"+chosenWord.toLowerCase()+".jpg");
   $("#img").hide();
 //placeholder for the word the computer chooses
@@ -38,7 +39,7 @@ totalLetters = gussWord.length;
 
 //("#img").attr("src", "assets/images/"+chosenWord.toLowerCase()+".jpg");
   //$("#img").hide();
- // this helps the user to see if they use on alpahabets
+ // this helps the user to see if they use only alpahabets
  function lettersOnly(e, t) {
   try {
     if (window.event) {
@@ -57,7 +58,7 @@ totalLetters = gussWord.length;
     alert(err.Description);
   }
 }
-
+//function that will define previous guess
 function prevGuess () {
   var userGuess = event.key;
   if (alreadyGuessed.includes(userGuess)) { 
@@ -77,7 +78,7 @@ document.onkeyup = function(event) {
     keyPress = event.keyCode;
     userGuess = String.fromCharCode(keyPress).toUpperCase();    // Convert user input key to upper case string.
   }  
-    //console.log(userGuss + " should match the key entered");
+    // match the key entered please
 
     if ((prevGuess()===false) && (lettersOnly())) {
 
@@ -110,14 +111,14 @@ for (var i = 0; i < gussWord.length; i++) {
     if ((totalLetters == rightLetters) && (guessNumber > 0)) {
       //console.log("Congratulations!")
       win++;
-   $("#img").show('fast');
+   $("#img").show("fast");
     gameStart();
   }
 
 } else if ((totalLetters !== rightLetters) && (guessNumber <= 0)) {
     //console.log("You lose.")
     lose++;
-    $("#img").show('fast');
+    $("#img").show("fast");
 
     gameStart();
   }
