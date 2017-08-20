@@ -7,6 +7,10 @@ header{
 .main-container{
 	margin-left: 40px;
 }
+.jumbotron {
+  background-color: green;
+  color: white;
+}
 p{
 	color: white;
 	padding-top: 20px;
