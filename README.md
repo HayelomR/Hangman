@@ -1,8 +1,18 @@
 
+<<<<<<< HEAD
 This game allows users to learn the type of the flower as wells as their spelling.
 
                   How to use the app
 
-after going to the page go head try any type of key to guess the type of flower. The app will give you ten chances to to guess the word if you fail to guess it will display the type of the word and its picture. at the bottom of the page it will count how many times you lose and win.
+You're going to make a game just like the one in the video. Essentially, the app randomly picks a letter, and the user has to guess which letter the app chose. Put the following text on your page:
+Guess what letter I'm thinking of
+Wins: (# of times the user has guessed the letter correctly)
+Losses: (# of times the user has failed to guess the letter correctly after exhausting all guesses)
+Guesses Left: (# of guesses left. This will update)
+Your Guesses So Far: (the specific letters that the user typed. Display these until the user either wins or loses.)
+When the player wins, increase the Wins counter and start the game over again (without refreshing the page).
+When the player loses, increase the Losses counter and restart the game without a page refresh (just like when the user wins).
+ at the left side of the page it will count how many times you lose and win.
 
 Good luck!
+
